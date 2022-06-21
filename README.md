@@ -1,3 +1,18 @@
+# Terraform teplates for kvm github runners
+
+
+## How to use
+
+ - clone the repo
+ - create your own NAME.tfvars with your variables override (see [docs](https://www.terraform.io/language/values/variables#variable-definitions-tfvars-files))
+ - `terraform init`
+ - `terraform plan -var-file=NAME.tfvars` to see the plan
+ - `terraform apply -var-file=NAME.tfvars` to update the infra (if needed)
+
+
+This plan will create a number of VMs and connect them to github in order to server as CI runners.
+Should work for both x86 and aarch64 as long as the config is set properly (see `arch` input below)
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
@@ -33,7 +48,7 @@
 | arch | Arch to use | `string` | `"x86_64"` | no |
 | github\_repo | Github repo to add the runner to | `string` | `"rancher/elemental-toolkit"` | no |
 | memory | Memory for each server | `number` | `4096` | no |
-| pool\_dir | Pool dir to store the VM data | `string` | `"/data/"` | no |
+| pool\_dir | Pool dir to store the VM data | `string` | `"/data/vm"` | no |
 | qemu\_uri | Qemu url | `string` | `"qemu:///system"` | no |
 | runner\_version | github runner version to use | `string` | `"2.293.0"` | no |
 | servers | Number of servers to deploy | `number` | `1` | no |
