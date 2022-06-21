@@ -1,4 +1,4 @@
-# Terraform teplates for kvm github runners
+# Terraform templates for kvm github runners
 
 
 ## How to use
@@ -6,8 +6,10 @@
  - clone the repo
  - create your own NAME.tfvars with your variables override (see [docs](https://www.terraform.io/language/values/variables#variable-definitions-tfvars-files))
  - `terraform init`
- - `terraform plan -var-file=NAME.tfvars` to see the plan
- - `terraform apply -var-file=NAME.tfvars` to update the infra (if needed)
+ - `terraform plan -var-file=NAME.tfvars` to see the plan*
+ - `terraform apply -var-file=NAME.tfvars` to update the infra (if needed)*
+
+*This expects a `terraform.tfstate` with the infra state, otherwise you would be recreating the infra from scratch
 
 
 This plan will create a number of VMs and connect them to github in order to server as CI runners.
