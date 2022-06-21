@@ -2,6 +2,11 @@ terraform {
   required_providers {
     libvirt = {
       source = "dmacvicar/libvirt"
+      version = "~>0.6"
+    }
+    template = {
+      source = "hashicorp/template"
+      version = "~>2.2"
     }
   }
 }
@@ -80,4 +85,5 @@ resource "libvirt_domain" "github_runner" {
 
 output "ips" {
   value = zipmap("${libvirt_domain.github_runner.*.name}", "${libvirt_domain.github_runner.*.network_interface.0.addresses.0}")
+  description = "Pair of nodename:IP of created VMs"
 }
