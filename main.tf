@@ -1,15 +1,25 @@
 terraform {
   required_providers {
     libvirt = {
-      source = "dmacvicar/libvirt"
+      source  = "dmacvicar/libvirt"
       version = "~>0.6"
     }
     template = {
-      source = "hashicorp/template"
+      source  = "hashicorp/template"
       version = "~>2.2"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "~>3.3"
     }
   }
 }
+
+resource "random_id" "id" {
+  byte_length = 8
+  count       = var.servers
+}
+
 
 provider "libvirt" {
   # Configuration options
@@ -41,8 +51,8 @@ data "template_file" "user_data" {
     github_token   = var.github_token
     github_repo    = var.github_repo
     runner_version = var.runner_version
-    count          = count.index
-    arch = var.arch == "aarch64" ? "arm64" : "x86_64" # used for the runner arch packages
+    random_id      = random_id.id[count.index].hex
+    arch           = var.arch == "aarch64" ? "arm64" : "x86_64" # used for the runner arch packages
   }
 }
 
@@ -71,12 +81,12 @@ resource "libvirt_volume" "volume" {
 }
 
 resource "libvirt_domain" "github_runner" {
-  count     = var.servers
-  name      = "github-runner-${count.index}"
-  vcpu      = var.vcpu
-  memory    = var.memory
+  count   = var.servers
+  name    = "kvm-github-runner-${random_id.id[count.index].hex}"
+  vcpu    = var.vcpu
+  memory  = var.memory
   machine = var.arch == "aarch64" ? "virt" : "q35"
-  arch = var.arch
+  arch    = var.arch
 
   cpu {
     mode = "host-passthrough"
@@ -99,6 +109,6 @@ resource "libvirt_domain" "github_runner" {
 }
 
 output "ips" {
-  value = zipmap("${libvirt_domain.github_runner.*.name}", "${libvirt_domain.github_runner.*.network_interface.0.addresses.0}")
+  value       = zipmap("${libvirt_domain.github_runner.*.name}", "${libvirt_domain.github_runner.*.network_interface.0.addresses.0}")
   description = "Pair of nodename:IP of created VMs"
 }
