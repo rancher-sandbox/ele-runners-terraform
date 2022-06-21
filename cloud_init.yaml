@@ -1,0 +1,48 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+hostname: github-runner-${count}
+
+packages:
+  - docker
+  - jq
+
+users:
+  - name: root
+    ssh_authorized_keys:
+      # david
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDsXnkvVTWSESDnYx5r5p1lKO391EwJTx8lj8Hn/j2jP1puscjtQJK8ZPUNNcBShkMxz/CqhPv7O+8+9iw3I0wBUCWTfHTEYABJYVy7BzBbEsP5IGLvx7gJ2gFx7XgRlhEcRuXPUiTlka+V7EJmF5PalOY9cxwJ3rZLM1+7uGGBmCNgUsnB4gYwgKp7oWrDNgfZsQ6z7Gu+QXPVNqVD3XabNbAHzMuKTUaCCH1rEp5odRV1Kz7ov8bnEIU7Ym1yAkPSeJDY+6N+b58gbE5y3X6yG7tQMU7lreeDWcPYrXm1bFuucj8KBx9/uIQsjShxWLZytgm38xTQq/bFAqDPK9S6+0CyGVSbv+3MYKqw/hc6WRqqPLdDXYb2msW07Fo4bw12mfZlimBN+kXo1fD0ZptjGdIW+CYzg6xgsfvRefsoubL1DCO5Nd8ak8OaJyOizJqwzlJcY6N2Fvo74yBjs2kMqgeXcVjW2xzhB1AYY3dsWvlFX40VjrnOQ0qWcwjQlCDmdlw1MKSry69fyrLWGSXq4SO78pPIDUpIkRNK90SzKo3iHx3Qx7cLWbFUAhcq8c7EQ8I7i2iqj+zlX23ItactwxtAAblgodxr9jY+xzX4d6TW03NHuohX6wjHfwwVgA9dCmzMoj7MIwEYx5Rti7pPK+DVzWUz6dRslcJjEIvhEQ==
+      # itxaka
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDg+QjNwZZVM3sAaWxy1XbDQnA4N6NQajJ6ASGNbdLCMvmXn5LzedXTaBYbCnuR10aiasvBNPPYF9OQhp0CuOV7wYKc4c8EpcKtpHBADKh6UykhYBiotet6+bM2kZRE/M5dBXEr1BJ80k/SazWxtSBEp8Q4T5lnS1emrybeV0Qq+7TN9ZeqWumvO5TgWsowusLsthzvteMSJTdw1yjUAw4f7EBQw/R0lK7fxWU/8murjhybvlJLjAfQV0u889ULR6dNHnwSGg8FcH/msYkH06bIYoOcULwR+QXIsTimbsZeZgkMAQBSkmQ1q1Alghjlro/cM4jm5CE41lsejHImsJtsqL0rUyd4ymrgtrtKgdP3rzoZGXuQdhfWhoVwLYAhifmJvWHkCIJ7nvW6Hx1QMWCq5Hm4tPZolB5qCAkoh1we/FuDm4BAXhTYoNMQcls9Eqe5irCzlbchsPJI1lETLuirIvoUT4vn6ekhQXxqR+xSOuLpAQW1OoabNk7G6p4yn18=
+      # mudler
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDR9zjXvyzg1HFMC7RT4LgtR+YGstxWDPPRoAcNrAWjtQcJVrcVo4WLFnT0BMU5mtMxWSrulpC6yrwnt2TE3Ul86yMxO2hbSyGP/xOdYm/nQzufY49rd3tKeJl1+6DkczuPa+XYh1GBcW5E2laNM5ZK+RjABppMpDgmnrM3AsGNE6G8RSuUvc/6Rwt61ma+jak3F5YMj4kwr5PhY2MTPo2YshsL3ouRXP/uPsbaBM6AdQakjWGJR8tPbrnHenzF65813d9zuY4y78TG0AHfomx9btmha7Mc0YF+BpELnvSQLlYrlRY/ziGhP65aQc8lFMc+XBnHeaXF4NHnzq6dIH2D
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDjWfZUB5W9HU70yOD1QW/7DSYZsisg8pPHnrxzS5WFnUvhnd7x3r9i+L8mRfk0tXk9p599e5uTryqaHW74bQK360+TnVens0JRF5vGeABe2L2GGrIkTIF8aTlPVq2BTDhu0R0rU28Cw3HwywX7cNjZdpFN2MtF74QbwqB0Ue7Nj6XxJjgV7GcecKEWc23Vjie6KEHlkFcgS0objZsiSt+hY3v3wJ94t+WZ8d1vEwvp7PX2J20W8Zq0bGcJiGMGuhDPRAZ4ju6HxIm60fUo9WzMNrZKVyEbMSYo6frLcmcMN0cDpDXE9WWnCwKDKnZEB0WqQcwOh1TQLYvRYEgMJair
+      # Pgonin
+      - ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEA0wiCy0J9n2gktRH1aLE2SSWsDEMbvtsMgczu3wTQCMtlTGNXFV/AzV+d9LI5+1zyn75sUofViQ9txlEAAMpmZAjqDXjr8goKbUhjgw7n3wvsGTqe1/BvE4dSHO1EEPdirl1Agz+DqGO+xwPqTf0K3/NhsZgtEhO/7U+qP6oHsY/G/yk8nWVdLpN7R2gFqGYx4XAiuw2dtKqJOY9K7uVyAb08dR7v692xlMdpZKH9QhMJI67RFL+IYGKakAjUUjLWQSDVn71qDlK2Vy3NS9UVFKFOXOlacA0W4u9YwPhR/u9tfoNQNqPjCbaPFxXT87aHLPgBBv8wpdrZshXsY6psVw==
+      # fgiudici
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDDGuQ3ysm3NAAxnOC45yrmCbtcc+q/HFjftrKtui5nQ3DyjVAvKg2wax85LQ30V3vQULcX2hzxrMoxeqkIQQQt4O9gmnkEeD3NxrpKl81fsiy+T7j77w25G/c9GccHZk8JcQGqY7G3PRCiGrsa913KxGkoyFGt1MB8mtXlmfTexdFuF17yC49UFReUBdUWhKuCrA3S6nXo1PYkCdPaemoLvvM2dxVrPsLCJ7vYgm2p2yHvpWNpEFO04fUWJ15jzotomBhBZp4eDYaGxtracFbIibTwPIDPZjRoz564clrgGo1yiLytHfDJ0i3JgrrpZ135lG8WY3P08NAUbhSZQ4it
+      # frelon
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDqB4xUEKaItsucfwbxcf6a8uOs1ANqCRt8HJvbnRsdxMVITqLRVHH77qaGtcUx0NqDZOHSIsmJjfyZisGja1uz2SzyjimkTVsxZqvgvM2r5k0uCpkzfqJVkcHHIANq3nYJRd9t1NzoMNgTm7CsjBCF04GKAZ14wWwg76IHp1XVj8giIfsJdSRcIfKgGdiDzRreu3GVwmM6WrWFBEhOmFe1VZi2WXdmg0BTTHxHab8ylmVW+1nXEU0So5lfLcnQHOesd8CtRkkKpkpffRO2nZnFl48kM+B4yZS4KtP1gP2crlCBMbJ8B6zrxNnP7yAuNl5t7+jFIVPFpQzrCKku+1dt/DpgORLtf3+vKcE0EPDL3QfqHsM/UIuSG3I3VogwyEMvh1UmX5FcVKVd9wjll1hC7GkJ4jhqjXrHuB8DSJ0S3EkWJ47Akb3TvMB28B7+Hm5kLFgwyoi0DGtwy3A5ZnMOpjJLut9ZelqQtnVk4mpMOB76N4VTRSv4i1CtzsDuiVJzcvs/kNg46Rs1NNOdJwT6mKuMyQ1Nxyrzdblv0Lmt2faSUacOdsYRWiZf5Fb8M//2rrNNuCtCfgprpn9Kn3HULrbF3mpENon27RyXVeqwwlf34nrz+xqC5QUB9bYWw4hL/g/goUNJTqJeARJJmLpcSkJ2ig8i4bbH5aHUYsMOyw==
+      # mjura
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDvhWKN/uRo0k2RP6xSOomGpS0xsjWtjrZSd8pUGJFiCUICXGcZsGHbsO45Lmuct3opMjsMfjnh3aEULWKZF1nykDhS2+FSP1cckYi34MnxN69TOtU9ko8/Mo9bCgfD80DZ0gjAdLBtuua9saFKPnKcfJrnJUHdGSt67NiNSmIk2u5aMKun7LPZwNKZOt2I+n0SEEYIbDeitP/AW1iEIlYZ2Kk+/DQfl7xrUB5sS3ree++KmnTOZXq+8K9NgHnaJodWx49TxWm+VcthAJcFNVwirhvUEbJPhJ0TpvNwFtYfzLHT375FhI1rFXQyNv2WTItv+uqL9I74UUmIDOMYDSXn
+      # kkaempf
+      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAIEArNiC+SWbK8Lnb4YPXbZ+P9niIJAKJnvqDOXdSb1JIVDioJ5ApVNpATWax9t+n+u+rOn0ox0vnUn0EOr4XR3KiJEeJLN26F7cFsk4IBvQzFQujQ53Y4Ppe9w3ODvNwImy5sTjXzmaC8614jHwMt1Hu4F/qyxDUl+gsgixv3DyvUM=
+
+growpart:
+  mode: auto
+  devices: ['/']
+
+runcmd:
+  - systemctl enable docker --now
+  - sed  -i '/PermitRootLogin/s/.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+  - systemctl restart sshd
+  - 'RUNNERTOKEN=$(curl -s -XPOST -H "authorization: token ${github_token}" https://api.github.com/repos/${github_repo}/actions/runners/registration-token | jq -r .token)'
+  - curl -s -O -L https://github.com/actions/runner/releases/download/v${runner_version}/actions-runner-linux-x64-${runner_version}.tar.gz
+  - mkdir /runner
+  - tar xzf ./actions-runner-linux-x64-${runner_version}.tar.gz -C /runner
+  # RUNNER_ALLOW_RUNASROOT=1 to allow the below to run as root (because that's what happens since the runner is configured & run as part of cloud-init)
+  - RUNNER_ALLOW_RUNASROOT=1 /runner/bin/installdependencies.sh
+  - RUNNER_ALLOW_RUNASROOT=1 /runner/config.sh --url https://github.com/${github_repo} --token $RUNNERTOKEN --unattended
+  - cd /runner && RUNNER_ALLOW_RUNASROOT=1 ./svc.sh install
+  - cd /runner && RUNNER_ALLOW_RUNASROOT=1 ./svc.sh start
+  - cd /runner && RUNNER_ALLOW_RUNASROOT=1 ./svc.sh status
