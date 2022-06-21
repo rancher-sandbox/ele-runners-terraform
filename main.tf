@@ -51,6 +51,9 @@ resource "libvirt_cloudinit_disk" "commoninit" {
   name      = "commoninit-${count.index}.iso"
   user_data = data.template_file.user_data[count.index].rendered
   pool      = libvirt_pool.runners.name
+  lifecycle {
+    ignore_changes = [user_data] # This avoids terraform thinking the whole thing needs to be destroyed when the vars change
+  }
 }
 
 resource "libvirt_volume" "jeos" {
@@ -72,7 +75,7 @@ resource "libvirt_domain" "github_runner" {
   name      = "github-runner-${count.index}"
   vcpu      = var.vcpu
   memory    = var.memory
-  machine = "virt"
+  machine = var.arch == "aarch64" ? "virt" : "q35"
   arch = var.arch
 
   cpu {

@@ -18,7 +18,7 @@ variable "vcpu" {
 }
 
 variable "servers" {
-  default = 1
+  default = 2
   type    = number
   description = "Number of servers to deploy"
 }
