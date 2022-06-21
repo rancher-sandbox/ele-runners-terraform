@@ -31,7 +31,7 @@ variable "arch" {
 
 variable "pool_dir" {
   type    = string
-  default = "/data/"
+  default = "/data/vm"
   description = "Pool dir to store the VM data"
 }
 

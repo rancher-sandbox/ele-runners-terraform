@@ -42,6 +42,7 @@ data "template_file" "user_data" {
     github_repo    = var.github_repo
     runner_version = var.runner_version
     count          = count.index
+    arch = var.arch == "aarch64" ? "arm64" : "x86_64" # used for the runner arch packages
   }
 }
 
@@ -56,7 +57,6 @@ resource "libvirt_volume" "jeos" {
   name   = "opensuse-15.4-jeos-${var.arch}.qcow2"
   source = var.arch == "x86_64" ? "https://download.opensuse.org/distribution/leap/15.4/appliances/openSUSE-Leap-15.4-JeOS.x86_64-15.4-OpenStack-Cloud-Current.qcow2" : "https://download.opensuse.org/distribution/leap/15.4/appliances/openSUSE-Leap-15.4-ARM-JeOS-efi.aarch64.qcow2"
   format = "qcow2"
-  pool   = libvirt_pool.runners.name
 }
 
 resource "libvirt_volume" "volume" {
@@ -72,14 +72,26 @@ resource "libvirt_domain" "github_runner" {
   name      = "github-runner-${count.index}"
   vcpu      = var.vcpu
   memory    = var.memory
+  machine = "virt"
+  arch = var.arch
+
+  cpu {
+    mode = "host-passthrough"
+  }
+
   cloudinit = libvirt_cloudinit_disk.commoninit[count.index].id
+
   disk {
     volume_id = element(libvirt_volume.volume.*.id, count.index)
+    scsi      = true
   }
   network_interface {
     network_id     = libvirt_network.runner_network.id
     network_name   = libvirt_network.runner_network.name
     wait_for_lease = true
+  }
+  xml {
+    xslt = file("sataCD.xsl") # This replaces on the fly the IDE cdrom for a sata one so its compatible on arm64
   }
 }
 
