@@ -43,6 +43,7 @@ runcmd:
   # RUNNER_ALLOW_RUNASROOT=1 to allow the below to run as root (because that's what happens since the runner is configured & run as part of cloud-init)
   - RUNNER_ALLOW_RUNASROOT=1 /runner/bin/installdependencies.sh
   - RUNNER_ALLOW_RUNASROOT=1 /runner/config.sh --url https://github.com/${github_repo} --token $RUNNERTOKEN --unattended --replace
-  - cd /runner && RUNNER_ALLOW_RUNASROOT=1 ./svc.sh install
-  - cd /runner && RUNNER_ALLOW_RUNASROOT=1 ./svc.sh start
-  - cd /runner && RUNNER_ALLOW_RUNASROOT=1 ./svc.sh status
+  # Need to CD into the root dir for the runner, otherwise it refuses to install the service
+  - cd /runner && ./svc.sh install root
+  - cd /runner && ./svc.sh start
+  - cd /runner && ./svc.sh status
