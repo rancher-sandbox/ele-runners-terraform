@@ -6,6 +6,7 @@ hostname: kvm-github-runner-${random_id}
 packages:
   - docker
   - jq
+  - python
 
 users:
   - name: root
